@@ -21,7 +21,7 @@ export async function readImage(mediaType: "image/jpeg" | "image/png", mediaData
               },
               {
                   "type": "text",
-                  "text": "This image contains a list of text. Your job is to print out exactly what the text says."
+                  "text": "This image contains a list of text. Your job is to print out exactly what the text says. Do not describe it. Simply print out exactly what it says."
               }
           ],
       }

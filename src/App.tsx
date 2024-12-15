@@ -41,6 +41,10 @@ function App(): React.JSX.Element {
       });
     
       if (!result.didCancel) {
+        setResults("Processing...")
+        setDetails("Processing...")
+        setMeta("")
+
         if (result.errorCode || result.errorMessage) {
           setResults("Error taking photo")
           setDetails(result.errorMessage || result.errorCode || "No details")

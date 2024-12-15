@@ -1,3 +1,25 @@
+export const containsAllergen = (aiDescription: string, allergen: string):boolean => {
+  // strip uppercase
+  let sanitizedAiDescription = aiDescription.toLowerCase()
+  let sanitizedAllergen = allergen.toLowerCase()
+  // strips , . ( ) [ ] - _ * " ' { } ? ! + = ^ & % $ # @ ; : \ / ` ~ and whitespace
+  const specialCharacterRegex = /[,.()\[\]-_*"'{}?!+=^&%$#@;:\\/`~\s]/g
+  sanitizedAiDescription = sanitizedAiDescription.replace(specialCharacterRegex, '')
+  sanitizedAllergen = sanitizedAllergen.replace(specialCharacterRegex, '')
+  sanitizedAllergen = sanitizedAllergen.replace("GENERICWARNINGLABEL", "")
+
+  return sanitizedAiDescription.includes(sanitizedAllergen)
+}
+
+
+// update this list with all of the following
+// remember to write the name, ingredient relation link, and cas/ec
+// https://ec.europa.eu/growth/tools-databases/cosing/
+// HEMA (spelling not exact)
+// CARBAMATE (spelling not exact)
+// need ec/cas of all the subingredients here
+// https://ec.europa.eu/growth/tools-databases/cosing/details/28313
+
 export const listOfAllergens:string[] = [
   // Textiles
   "Neoprene",
@@ -8,8 +30,6 @@ export const listOfAllergens:string[] = [
   // Synonyms
   "chloroprene",
   "elastic",
-
-
 
 
   // Carba Mix (MX-06)
@@ -56,6 +76,10 @@ export const listOfAllergens:string[] = [
   "Sinkdietylditiokarbamat",
   "Dietylditiokarbaminsyre, sinksalt",
   "Etyl Zimate",
+  // CAS
+  " 102-06-7 ",
+  // EC
+  " 203-002-1 ",
 
 
   // MDBGN (Methyldibromo glutaronitrile) (D-049E)
@@ -87,6 +111,13 @@ export const listOfAllergens:string[] = [
   "Fenoksyetanol",
   "Bromotalonil",
   "Dibromoglutaronitril",
+  // CAS
+  "35691-65-7",
+  "835913-41-2", 
+  "122-99-6", 
+  // EC
+  "252-681-0",
+  "204-589-7",
   
 
   // Toluenesulfonamide formaldehyde resin (T-010)
@@ -99,8 +130,7 @@ export const listOfAllergens:string[] = [
   "Mearlmaid TX-EPM-8-6",
   "Santolite MHP",
   "Santolite MS",
-  "Tosylamide/formaldehyde",
-  "Tosylamide resin",
+  "Tosylamide",
   // Norsk
   "Toluenesulfonamid",
   "Formaldehydharpiks",
@@ -108,6 +138,19 @@ export const listOfAllergens:string[] = [
   "4-metylpolymer",
   "Tosylamid/formaldehyd",
   "Tosylamidharpiks",
+  // CAS
+  " 70-55-3 ",
+  "88-19-7",
+  "80-39-7",
+  "1077-56-1 ",
+  " 25035-71-6 ",
+  " 39277-28-6 ",
+  // EC
+  "200-741-1",
+  "201-808-8 ",
+  "201-275-1",
+  "214-073-3 ",
+
 
   // 2-Bromo-2-nitropropane-1,3-diol (B-015B)
   "nitropropane",
@@ -136,6 +179,11 @@ export const listOfAllergens:string[] = [
   "Nitropropan",
   "Propandiol",
   "Nitrotrimetylenglykol",
+  // CAS
+  " 52-51-7 ", 
+  // EC
+  " 200-143-0 ", 
+
 
   // Colophony (C-020)
   "Colophony",
@@ -174,6 +222,192 @@ export const listOfAllergens:string[] = [
   "Metylabietat",
   "Furu harpiks",
   "Treharpiks",
+  // EU
+  " POLYESTER-41 ",
+  " HYDROABIETYL ALCOHOL",
+  "Phenanthrenemethanol",
+  "dodecahydro-1,4a-dimethyl-7-(1-methylethyl)-",
+  "Trialkylamin",
+  "trialkanolamin",
+  "DIMETHYL BEHENAMINE",
+"  DIMETHYL BEHENAMINE",
+"  DIBEHENYL METHYLAMINE",
+"  DIMETHYL COCAMINE",
+"  DIMETHYL HYDROGENATED TALLOWAMINE",
+"  DIMETHYL LAURAMINE",
+"  DIMETHYL LAURAMINE ISOSTEARATE",
+"  DIMETHYL MYRISTAMINE",
+"  DIMETHYL PALMITAMINE",
+"  DIMETHYL STEARAMINE",
+"  DIMETHYL SOYAMINE",
+"  DIMETHYL TALLOWAMINE",
+"  DI-TEA-OLEAMIDO PEG-2 SULFOSUCCINATE",
+"  DI-TEA-PALMITOYL ASPARTATE",
+"  LAURYL DIMETHYLAMINE CYCLOCARBOXYPROPYLOLEATE",
+"  MAGNESIUM/TEA-COCO-SULFATE",
+"  METHYL DICOCAMINE",
+"  SODIUM/TEA-UNDECYLENOYL ALGINATE",
+"  SODIUM/TEA-UNDECYLENOYL CARRAGEENAN",
+"  SULFURIZED TEA-RICINOLEATE",
+"  TEA-C10-15 ALKYL SULFATE",
+"  TEA-C12-13 ALKYL SULFATE",
+"  TEA-C12-14 ALKYL SULFATE",
+"  TEA-C12-15 ALKYL SULFATE",
+"  TEA-COCOATE",
+"  TEA-COCOYL GLUTAMATE",
+"  TEA-COCOYL HYDROLYZED COLLAGEN",
+"  TEA-COCOYL SARCOSINATE",
+"  TEA-EDTA",
+"  TEA-LAUROYL GLUTAMATE",
+"  TEA-HYDROCHLORIDE",
+"  TEA-LAUROYL LACTYLATE",
+"  TEA-LACTATE",
+"  TEA-LAUROYL METHYLAMINOPROPIONATE",
+"  TEA-LAURYL SULFATE",
+"  TEA-MYRISTATE",
+"  TEA-OLEATE",
+"  TEA-PEG-3 COCAMIDE SULFATE",
+"  TEA-PALMITATE",
+"  TEA-PHENYLBENZIMIDAZOLE SULFONATE",
+"  TEA-SALICYLATE",
+"  TEA-SORBATE",
+"  TEA-SULFATE",
+"  TEA-STEARATE",
+"  TEA-TALLATE",
+"  TEA-UNDECYLENATE",
+"  TEA-TRIDECYLBENZENESULFONATE",
+"  TIPA-LAURETH SULFATE",
+"  TRIETHANOLAMINE",
+"  TRIISOPROPANOLAMINE",
+"  TRILAURYLAMINE",
+"  DI-TEA-COCAMIDE DIACETATE",
+"  POLYURETHANE-17",
+"  POLYURETHANE-18",
+"  POLYURETHANE-19",
+"  TIPA-ACRYLATES/ETHYLHEXYL ACRYLATE COPOLYMER",
+"  TIPA-MYRISTATE",
+"  POLYURETHANE-21",
+"  TEA-ACRYLATES/ETHYLHEXYL ACRYLATE COPOLYMER",
+"  TEA-ALGINATE",
+"  TEA-C11-15 ALKYL SULFATE",
+"  TEA-C12-13 PARETH-3 SULFATE",
+"  TEA-C12-14 ALKYL PHOSPHATE",
+"  TEA-C12-13 ALKYL PHOSPHATE",
+"  TEA-COCAMIDE DIACETATE",
+"  TEA-COCOYL ALANINATE",
+"  TEA-COCOYL GLUTAMINATE",
+"  TEA-COCOYL GLYCINATE",
+"  TEA-DEXTRIN OCTENYLSUCCINATE",
+"  TEA-DIETHANOLAMINOETHYL POLYISOBUTENYLSUCCINATE",
+"  TEA-DIMETHICONE PEG-7 PHOSPHATE",
+"  TEA-GLYCERYL DIMALEATE",
+"  TEA-HYDROGENATED COCOATE",
+"  TEA-HYDROGENATED TALLOWOYL GLUTAMATE",
+"  TEA-LAURATE/MYRISTATE",
+"  TEA-C11-15 PARETH SULFATE",
+"  TEA-LAURETH-4 PHOSPHATE",
+"  TEA-LAUROYL/MYRISTOYL ASPARTATE",
+"  TEA-LAURYL PHOSPHATE",
+"  DIMETHYL LAURAMINE DIMER DILINOLEATE",
+"  TEA-PEG-50 HYDROGENATED CASTOR OIL SUCCINATE",
+"  DIMETHYL LAURAMINE OLEATE",
+"  DISTEARYLDIMETHYLAMINE DILINOLEATE",
+"  SODIUM/TEA-UNDECYLENOYL COLLAGEN AMINO ACIDS",
+"  SODIUM/TEA-UNDECYLENOYL HYDROLYZED COLLAGEN",
+"  SODIUM/TEA-UNDECYLENOYL HYDROLYZED CORN PROTEIN",
+"  SODIUM/TEA-UNDECYLENOYL HYDROLYZED WHEAT PROTEIN",
+"  SODIUM/TEA-UNDECYLENOYL HYDROLYZED SOY PROTEIN",
+"  SODIUM/TEA-LAUROYL COLLAGEN AMINO ACIDS",
+"  SODIUM/TEA-LAUROYL HYDROLYZED COLLAGEN",
+"  SODIUM/TEA-LAUROYL HYDROLYZED KERATIN",
+"  SODIUM/TEA-LAUROYL KERATIN AMINO ACIDS",
+"  TIPA-STEARATE",
+"  TIPA-LAURYL SULFATE",
+"  TEA-ABIETOYL HYDROLYZED COLLAGEN",
+"  TEA-ACRYLATES/ACRYLONITROGENS COPOLYMER",
+"  TEA-CANOLATE",
+"  TEA-CARBOMER",
+"  TEA-COCO-SULFATE",
+"  TEA-COCOYL HYDROLYZED SOY PROTEIN",
+"  TEA-DODECYLBENZENESULFONATE",
+"  TEA-HYDROIODIDE",
+"  TEA-ISOSTEARATE",
+"  TEA-ISOSTEAROYL HYDROLYZED COLLAGEN",
+"  TEA-LANETH-5 SULFATE",
+"  TEA-LAURAMINOPROPIONATE",
+"  TEA-LAURATE",
+"  TEA-LAURETH SULFATE",
+"  TEA-LAUROYL COLLAGEN AMINO ACIDS",
+"  TEA-LAUROYL HYDROLYZED COLLAGEN",
+"  TEA-LAUROYL KERATIN AMINO ACIDS",
+"  TEA-LAUROYL SARCOSINATE",
+"  TEA-MYRISTAMINOPROPIONATE",
+"  TEA-OLEOYL HYDROLYZED COLLAGEN",
+"  TEA-MYRISTOYL HYDROLYZED COLLAGEN",
+"  TEA-OLEYL SULFATE",
+"  TEA-OLEOYL SARCOSINATE",
+"  TEA-PALM KERNEL SARCOSINATE",
+"  TEA-PCA",
+"  TEA-UNDECYLENOYL HYDROLYZED COLLAGEN",
+"  TEA-ROSINATE",
+"  TEA-C8-18 PERFLUOROALKYLETHYL PHOSPHATE",
+"  HYDROXYETHYL ISOSTEARYLOXY ISOPROPANOLAMINE",
+"  DIHYDROGENATED TALLOW METHYLAMINE",
+"  BUTYL DIETHANOLAMINE",
+"  TEA C14-17 ALKYL SEC SULFONATE",
+"  SODIUM/TEA C12-13 PARETH-3 SULFATE",
+"  DICOCODIMETHYLAMINE DILINOLEATE",
+"  POLYURETHANE-46",
+  // CAS
+  " 8050-09-7 ",
+  " 8050-26-8 ",
+  " 65997-05-9 ",
+  " 65997-06-0 ",
+  " 242812-90-4 ",
+  " 242812-90-4 ",
+  " 666-84-2 ",
+  "247-574-0 ",
+  "	26266-77-3",
+  " 8002-26-4 ",
+  " 514-10-3 ",
+  " 68153-38-8 ",
+  " 68648-53-3 ",
+  "8050-13-3 ",
+  "8050-15-5",
+  " 64365-17-9 ",
+  " 65997-13-9 ",
+  " 169590-84-5 ",
+  "8050-31-5 ",
+  "	65997-13-9 ",
+  " 68186-14-1 ",
+  " 61790-65-5 ",
+  " 9010-69-9 ",
+  " 83137-13-7 ",
+  " 8050-09-7 ",
+  " 65997-07-1 ",
+  // EC
+  " 500-163-2 ",
+  "232-475-7",
+  " 232-479-9 ",
+  " 232-475-7 ",
+  " 266-041-3 ",
+  " 280-192-2 ",
+  " 232-723-4 ",
+  " 263-156-0 ",
+  " 269-035-9 ",
+  "	266-042-9 ",
+  "232-482-5 ",
+  " 266-042-9 ",
+  " 264-848-5 ",
+  " 232-476-2 ",
+  " 271-996-4 ",
+  " 268-884-2 ",
+  " 232-304-6 ",
+  " 208-178-3 ",
+  "13393-93-6 ",
+  "236-476-3 ",
+  " 211-564-4 ",
+
 
   // 2-Hydroxyethylmethacrylate (H-010)
   "Hydroxyethylmethacrylate",
@@ -198,6 +432,7 @@ export const listOfAllergens:string[] = [
   "Etylenglykolmetakrylat",
   "(Metakryloyloxy)etanol",
 
+
   // Cobalt (C-017A)
   "Cobalt",
   "(C-017A)",
@@ -207,12 +442,53 @@ export const listOfAllergens:string[] = [
   // Norsk
   "Kobolt",
   "Hexahydrat",
+  //EU
+  "CI 77346",
+  "Blue 28",
+  "Blue Spinel",
+  "GREEN 50 ",
+  "Black 25",
+  "CI 77332",
+  // CAS
+  " 7440-48-4 ",
+  " 231-158-0 ",
+  " 7646-79-9 ",
+  " 10124-43-3 ",
+  " 23384-69-2 ",
+  " 105883-52-1 ",
+  " 10141-05-6 ",
+  " 513-79-1 ",
+  " 1345-16-0 ",
+  " 68186-85-6 ",
+  " 71-48-7 ",
+  " 12017-38-8 ",
+  "68186-89-0 ",
+  " 58591-45-0 ",
+  " 12737-30-3 ",
+  "68016-03-5",
+  // EC
+  " 231-589-4 ",
+  " 233-334-2 ",
+  " 233-402-1 ",
+  " 208-169-4 ",
+  " 310-193-6 ",
+  " 200-755-8 ",
+  " 234-618-9 ",
+  " 442-750-5 ",
+  " 269-051-6 ",
+  " 261-346-8 ",
+  " 620-395-9 ",
+  "268-169-5 ",
   
-]
+  
+  // warning labels for potential skin allergens
+  "H317 - GENERIC WARNING LABEL",
+  "R43 - GENERIC WARNING LABEL",
 
-export const containsAllergen = (aiDescription: string, allergen: string):boolean => {
-  /* TODO determine if its in the string. this is difficult because the strings may be different for a variet of reasons: hyphens, paranthesis, spaces, capitalization, roman numerals vs numbers, even language (norsk vs engelsk) or chemical categorization (US D-# T-# MX-# system vs Norway's E# system etc) */
-  // I could get around some of this by stripping capitalization, paranthesis, hyphens, spaces, slashes, etc
-  // I MIGHT be able to get around the english-norsk barrier by asking the ai to convert my listOfAllergens into other languages as well and add those to the listOfAllergens source code
-  // see TODO in App.tsx
-}
+  // Generic 
+  "Fragrance",
+  "Perfume",
+  "Duft",
+  "Parfyme",
+
+]
