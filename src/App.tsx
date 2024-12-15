@@ -102,6 +102,9 @@ function App(): React.JSX.Element {
       else if (e instanceof Error) {
         setDetails(e.message)
       }
+      else {
+        setDetails(JSON.stringify(e))
+      }
     }
   }
 
