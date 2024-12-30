@@ -21,6 +21,13 @@ export const containsAllergen = (aiDescription: string, allergen: string):boolea
 //   https://ec.europa.eu/growth/tools-databases/cosing/details/28271
 
 export const listOfAllergens:string[] = [
+  "Carba Mix",
+  "MDBGN (Methyldibromo glutaronitrile)",
+  "Toluenesulfonamide formaldehyde resin",
+  "Colophony",
+  "2-Hydroxyethylmethacrylate",
+  "Cobalt",
+  "2-Bromo-2-nitropropane-1,3-diol",
   // Textiles
   "Neoprene",
   "Elastane",

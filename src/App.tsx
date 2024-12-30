@@ -25,6 +25,7 @@ import {listOfAllergens, containsAllergen} from "./Allergens"
 function App(): React.JSX.Element {
   const [results, setResults] = useState("")
   const [details, setDetails] = useState("")
+  const [showList, setShowList] = useState(false)
   const [meta, setMeta] = useState("")
 
   const onCamera = () => {
@@ -136,6 +137,12 @@ function App(): React.JSX.Element {
           </Section>
           <Section title="Meta">
             <SectionText>{meta}</SectionText>
+          </Section>
+          <Section title="Full List">
+          <TouchableOpacity onPress={() => {setShowList(!showList)}} style={styles.button}>
+            <Text style={styles.buttonText}>{showList ? "Hide List" : "Show List"}</Text>
+          </TouchableOpacity>
+            <SectionText>{showList ? listOfAllergens.join('\n') : null}</SectionText>
           </Section>
         </View>
       </ScrollView>
