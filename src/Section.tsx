@@ -26,7 +26,7 @@ export function Section({children, title}: SectionProps): React.JSX.Element {
 }
 
 export function SectionText({children}:PropsWithChildren<{}>): React.JSX.Element {
-  return <Text style={styles.sectionText}>
+  return <Text selectable style={styles.sectionText}>
     {children}
   </Text>
 }
