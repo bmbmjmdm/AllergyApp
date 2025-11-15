@@ -5,9 +5,7 @@ const client = new Anthropic({
   apiKey: "",
 });
 
-const model =  "claude-3-5-sonnet-20241022"
-// claude-3-haiku-20240307 for faster and cheaper
-// claude-3-5-sonnet-20241022 for better results
+const model =  "claude-sonnet-4-5"
 
 export async function readImage(mediaType: "image/jpeg" | "image/png", mediaData: string) {
   const message = await client.messages.create({
